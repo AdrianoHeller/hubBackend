@@ -2,6 +2,18 @@ const http = require('http')
 const url = require('url')
 const {StringDecoder} = require('string_decoder')
 require('dotenv').config()
+const utils = {
+    createToken: tokenSize => {
+       tokenSize = typeof tokenSize == 'number' && tokenSize > 0 ? tokenSize : false;
+       const characterList = 'abcdefghijklmnopqrstuvwxyz0123456789';
+       let newToken = new String;
+       while(newToken.length < tokenSize){
+          const randomItem = characterList.charAt(parseInt(Math.random()*characterList['length']));
+	 newToken += randomItem;      
+       }
+	return newToken    
+    }
+}
 
 const httpServer = http.createServer((req,res) => {
 	bigServer(req,res)
