@@ -1,0 +1,23 @@
+{
+  "name": "technoizz",
+  "version": "1.0.0",
+  "description": "Professional data ingestion project.",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AdrianoHeller/hubBackend.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AdrianoHeller/hubBackend/issues"
+  },
+  "homepage": "https://github.com/AdrianoHeller/hubBackend#readme",
+  "dependencies": {
+    "dotenv": "^8.2.0"
+  }
+}
