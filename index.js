@@ -1,7 +1,6 @@
 const http = require('http')
 const url = require('url')
 const {StringDecoder} = require('string_decoder')
-const hashSecret = 'secret'
 const crypto = require('crypto')
 require('dotenv').config()
 
@@ -74,7 +73,7 @@ const router = {
 	      ), 
 	      delete payloadReq['body'],
 	      payloadReq['body'] = parsedBody,
-	      senhaCriptografada = crypto.createHmac('sha256',hashSecret).update(payloadReq['body']['senha']).digest('hex'),	    
+	      senhaCriptografada = crypto.createHmac(process.env.HASH_ALGORYTHM,process.env.HASH_SECRET).update(payloadReq['body']['senha']).digest('hex'),	    
 	      delete payloadReq['body']['senha'],
 	      payloadReq['body']['senha'] = senhaCriptografada,	    
 	      payloadReq['tokenData'] = {
