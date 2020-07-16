@@ -1,7 +1,10 @@
 const http = require('http')
 const url = require('url')
 const {StringDecoder} = require('string_decoder')
+const hashSecret = 'secret'
+const crypto = require('crypto')
 require('dotenv').config()
+
 const utils = {
     createToken: tokenSize => {
        tokenSize = typeof tokenSize == 'number' && tokenSize > 0 ? tokenSize : false;
@@ -18,6 +21,7 @@ const utils = {
 const httpServer = http.createServer((req,res) => {
 	bigServer(req,res)
 })
+
 
 httpServer.listen(process.env.HTTP_PORT, err => {
 	!err ? console.log(`Servidor http ouvindo na porta ${process.env.HTTP_PORT}`) : console.error(err)
@@ -70,6 +74,12 @@ const router = {
 	      ), 
 	      delete payloadReq['body'],
 	      payloadReq['body'] = parsedBody,
+	      senhaCriptografada = crypto.createHmac('sha256',hashSecret).update(payloadReq['body']['senha']).digest('hex'),	    
+	      delete payloadReq['body']['senha'],
+	      payloadReq['body']['senha'] = senhaCriptografada,	    
+	      payloadReq['tokenData'] = {
+		      token: utils.createToken(40),
+		      expiration: Date.now()},
 	      res.writeHead(200),
 	      res.end(JSON.stringify(payloadReq))	    
 	    ) : (
