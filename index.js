@@ -73,9 +73,9 @@ const router = {
 	      ), 
 	      delete payloadReq['body'],
 	      payloadReq['body'] = parsedBody,
-	      senhaCriptografada = crypto.createHmac(process.env.HASH_ALGORYTHM,process.env.HASH_SECRET).update(payloadReq['body']['senha']).digest('hex'),	    
+	      hashedPassword = crypto.createHmac(process.env.HASH_ALGORYTHM,process.env.HASH_SECRET).update(payloadReq['body']['senha']).digest('hex'),	    
 	      delete payloadReq['body']['senha'],
-	      payloadReq['body']['senha'] = senhaCriptografada,	    
+	      payloadReq['body']['senha'] = hashedPassword,	    
 	      payloadReq['tokenData'] = {
 		      token: utils.createToken(40),
 		      expiration: Date.now()},
