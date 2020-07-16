@@ -21,7 +21,6 @@ const httpServer = http.createServer((req,res) => {
 	bigServer(req,res)
 })
 
-
 httpServer.listen(process.env.HTTP_PORT, err => {
 	!err ? console.log(`Servidor http ouvindo na porta ${process.env.HTTP_PORT}`) : console.error(err)
 })
@@ -32,7 +31,8 @@ const bigServer = (req,res) => {
 	const pathRegex = pathname.replace(/^\/+|\/+$/g,'');
 	const {headers,method} = req;
 	const {query} = parse(req.url,true);
- 	const Decoder = new StringDecoder(process.env.ENCODING);	      let strBuffer = new String;
+ 	const Decoder = new StringDecoder(process.env.ENCODING);
+	let strBuffer = new String;
 	
 	req.on('data', streamInput => {
 	  strBuffer += Decoder['write'](streamInput);
